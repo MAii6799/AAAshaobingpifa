@@ -1,15 +1,25 @@
 # 烧饼导航快速入门
 
-***仅适用于以NAV2为基础框架的烧饼导航***
-
 BY MAii6799
+
+**仅适用于以NAV2为基础框架的烧饼导航**
+
+**开始的开始，请熟读[提问的智慧](Navigation\资料\提问的智慧.pdf)**
 
 ## 基础依赖
 
 - 电脑系统：Ubuntu22.04
 - ros2版本：humble
 - 雷达设备：MID360，留形odin1
-- 学习基础：C++，git，cmake，rm比赛规则
+- 学习基础：C++，git，cmake，rm比赛规则，**记得都去学喵喵**
+
+## 此教程包含
+- 烧饼介绍与规则更新
+- 导航介绍
+- 教程资料
+- 开源资料
+- 仿真学习
+- 实车调试（雷达使用与NAV2调参）
 
 ## 烧饼介绍与规则更新
 
@@ -52,7 +62,7 @@ BY MAii6799
 
 4. 对场地**建图**，获得一张栅格地图
 5. **定位与重定位**
-6. 如何对新障碍物进行**感知与避障**
+6. 对地图上没有的新障碍物进行**感知与避障**
 
 
 <mark>以上，是我们导航要做的全部事情</mark>
@@ -63,7 +73,9 @@ BY MAii6799
 
 2. [NAV2官网](https://docs.nav2.org/)：这一部分主要看Navigation Concept和First-Time Robot Setup Guide，了解一下导航基本概念，对nav2这个东西有点感觉，做一个导航仿真小小小项目起手
 
-3. [SLAM十四讲](Navigation\资料\slam十四讲第二版.pdf)：被称为slam圣经的东西，但是我至今没看完一半。没什么好看的。
+3. [SLAM十四讲](Navigation\资料\slam十四讲第二版.pdf)：被称为slam圣经的东西，但是我至今没看完一半。数学，没什么好看的。
+
+4. [了解CV和RoboMaster视觉组](Navigation\资料\了解CV和RoboMaster视觉组.pdf)：据说是视觉圣经但是我也没看完对不起！
 
 
 
@@ -77,17 +89,22 @@ BY MAii6799
 
 3. [辽科大cod战队26赛季RMUL导航](https://bbs.robomaster.com/article/1882897?source=8)
 
-3. [四川大学火锅战队25赛季导航](https://github.com/PolarisXQ/SCURM_SentryNavigation)
+4. [武汉科技大学崇实战队26赛季导航](https://github.com/hyheiyue/rose_navigation)
 
-4. [中南大学FYT战队23赛季导航](https://github.com/baiyeweiguang/CSU-RM-Sentry)
+5. [四川大学火锅战队25赛季导航](https://github.com/PolarisXQ/SCURM_SentryNavigation)
+
+6. [中南大学FYT战队23赛季导航](https://github.com/baiyeweiguang/CSU-RM-Sentry)
 
 
 `
-1和2都是目前必须要看的，需要了解深北莫每个包的作用，学习派大星开源的框架和项目结构，真的非常非常好，总之比我的好很多，，
+1和2和3都是目前必须要看的，需要了解深北莫每个包的作用，学习派大星开源的框架和项目结构，真的非常非常好，总之比我的好很多，，武科的开源也需要严肃学习！因为NAV2对于rm比赛来说还是太冗余也需要，武科是自己搭建的框架，并且环境和我们现在的是一样的喵喵
+`
+
+`
 纯里程计导航对于UL来说完全够用，并且cod战队开源提供的多点导航思路相比起单点导航在UL场地上更不容易卡进死区，而且到达控制区目标点的速度也会更快，今年我们的烧饼在整场UL中只出过一次家门还死在半路了，希望明年可以做得更好^-^
 `
 
-## 开源资料学习思路
+## 仿真学习
 学完入门基础教程之后就可以开始狠狠play[深北莫仿真包](https://github.com/SMBU-PolarBear-Robotics-Team/rmu_gazebo_simulator)了，其他什么都不用管，第一件事情和部署自瞄包一样,先把深北莫的导航仿真和代码部署好跑一遍，跑起来之后通过以下命令行
 ＋rqt看他的**各个消息节点和数据流，以及消息发布的内容格式**：
 
@@ -116,7 +133,7 @@ ros2 node list
 `
 
 
-## 雷达使用与实车调试
+## 实车调试
 
 <mark>记得把use_sim_time=true改成false</mark>
 
@@ -131,7 +148,7 @@ ros2 node list
 1. 安装SDK：https://github.com/Livox-SDK/Livox-SDK2
 2. 安装雷达驱动：https://github.com/Livox-SDK/livox_ros_driver2
 3. 安装Livox_viewer或者在foxglove里面看扫描到的点云
-4. 在你自己的电脑上初次使用雷达驱动来启动雷达，需要修改的参数是config文件里的lidar_ip,每个mid360都有自己的ip，我们的mid360的ip是192.168.1.106。
+4. 在你自己的电脑上初次使用雷达驱动来启动雷达，需要修改的参数是config文件里的lidar_ip,每个mid360都有自己的ip，<mark>我们的mid360的ip是192.168.1.106</mark>。
 5. 配置你电脑的ip，改成192.168.1.50
 6. 原神
 
@@ -145,7 +162,7 @@ ros2 node list
 4. 原神
 
 
-### 调试环节
+### 调参环节
 <mark>和电控联调的时候千万不要忘记开串口通信啊！！！！</mark>
 
 1. 对于NAV2来说，导航这个东西具体实现都被内部封装好了，你只要在NAV2的config里面调整参数就行了，主要需要调参的部分是<mark>控制器</mark>，其他部分视情况，比如代价地图的大小，**当然如果之后我们不使用NAV2作为导航工具了那另说**
